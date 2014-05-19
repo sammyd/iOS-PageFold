@@ -11,5 +11,6 @@
 @interface RWViewController : UIViewController
 
 @property (weak, nonatomic) IBOutlet UIView *contentView;
+- (IBAction)handleCompletionSliderChanged:(UISlider *)sender;
 
 @end

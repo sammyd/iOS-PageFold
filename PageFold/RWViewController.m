@@ -22,8 +22,19 @@
     [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
     
-    self.viewSplitter = [[RWViewSplitter alloc] initWithView:self.contentView container:self.view];
-    [self.viewSplitter split];
+    
 }
 
+- (void)viewDidAppear:(BOOL)animated
+{
+    self.viewSplitter = [[RWViewSplitter alloc] initWithView:self.contentView container:self.view];
+
+    [self.viewSplitter split];
+    
+    [self.viewSplitter setAnimationCompleted:0.5];
+}
+
+- (IBAction)handleCompletionSliderChanged:(UISlider *)sender {
+    [self.viewSplitter setAnimationCompleted:sender.value];
+}
 @end

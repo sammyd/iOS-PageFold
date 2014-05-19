@@ -16,7 +16,6 @@
 
 @property (nonatomic, strong) UIView *leftView;
 @property (nonatomic, strong) UIView *rightView;
-@property (nonatomic, strong) UIView *containerView;
 
 @end
 
@@ -29,7 +28,6 @@
     if(self) {
         self.initialView = view;
         self.container = container;
-        [self splitView:view];
     }
     return self;
 }
@@ -38,32 +36,20 @@
 - (void)setAnimationCompleted:(CGFloat)completion
 {
     self.currentProportion = MIN(1, MAX(0, completion));
-}
-
-
-#pragma mark - Non-public methods
-- (void)splitView:(UIView *)view
-{
-    CGRect leftRect;
-    CGRect rightRect;
-    CGFloat width = CGRectGetWidth(view.bounds) / 2.0;
-    CGRectDivide(view.bounds, &leftRect, &rightRect, width, CGRectMinXEdge);
-    NSLog(@"Left: %@", NSStringFromCGRect(leftRect));
-    NSLog(@"Right: %@", NSStringFromCGRect(rightRect));
     
-    UIView *left = [view resizableSnapshotViewFromRect:leftRect
-                                    afterScreenUpdates:YES
-                                         withCapInsets:UIEdgeInsetsZero];
-    self.leftView = left;
-    UIView *right = [view resizableSnapshotViewFromRect:rightRect
-                                     afterScreenUpdates:YES
-                                          withCapInsets:UIEdgeInsetsZero];
-    right.frame = rightRect;
-    self.rightView = right;
+    CATransform3D rotn = CATransform3DMakeRotation(completion * M_PI_2, 0, 1, 0);
+    self.leftView.layer.transform = rotn;
+    rotn = CATransform3DMakeRotation(- completion * M_PI_2, 0, 1, 0);
+    self.rightView.layer.transform = rotn;
 }
+
 
 - (void)split
 {
+    if(!self.leftView) {
+        [self splitView:self.initialView];
+        [self prepareTransforms];
+    }
     [self.container addSubview:self.leftView];
     [self.container addSubview:self.rightView];
     [self.initialView removeFromSuperview];
@@ -74,6 +60,36 @@
     [self.container addSubview:self.initialView];
     [self.leftView removeFromSuperview];
     [self.rightView removeFromSuperview];
+}
+
+
+#pragma mark - Non-public methods
+- (void)splitView:(UIView *)view
+{
+    CGRect leftRect;
+    CGRect rightRect;
+    CGFloat width = CGRectGetWidth(view.bounds) / 2.0;
+    CGRectDivide(view.bounds, &leftRect, &rightRect, width, CGRectMinXEdge);
+    
+    UIView *left = [view resizableSnapshotViewFromRect:leftRect
+                                    afterScreenUpdates:YES
+                                         withCapInsets:UIEdgeInsetsZero];
+    left.layer.anchorPoint = CGPointMake(1, 0.5);
+    left.frame = CGRectOffset(leftRect, view.frame.origin.x, view.frame.origin.y);
+    self.leftView = left;
+    UIView *right = [view resizableSnapshotViewFromRect:rightRect
+                                     afterScreenUpdates:YES
+                                          withCapInsets:UIEdgeInsetsZero];
+    right.layer.anchorPoint = CGPointMake(0, 0.5);
+    right.frame = CGRectOffset(rightRect, view.frame.origin.x, view.frame.origin.y);;
+    self.rightView = right;
+}
+
+- (void)prepareTransforms
+{
+    CATransform3D perspectiveTransform = CATransform3DIdentity;
+    perspectiveTransform.m34 = -0.002;
+    self.container.layer.sublayerTransform = perspectiveTransform;
 }
 
 
