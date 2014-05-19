@@ -7,8 +7,11 @@
 //
 
 #import "RWViewController.h"
+#import "RWViewSplitter.h"
 
 @interface RWViewController ()
+
+@property (nonatomic, strong) RWViewSplitter *viewSplitter;
 
 @end
 
@@ -18,12 +21,9 @@
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
-}
-
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+    
+    self.viewSplitter = [[RWViewSplitter alloc] initWithView:self.contentView container:self.view];
+    [self.viewSplitter split];
 }
 
 @end

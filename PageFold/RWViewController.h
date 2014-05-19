@@ -10,4 +10,6 @@
 
 @interface RWViewController : UIViewController
 
+@property (weak, nonatomic) IBOutlet UIView *contentView;
+
 @end
