@@ -20,11 +20,11 @@
                                 </connections>
                             </slider>
                             <view contentMode="scaleToFill" id="Oro-kT-tEP">
-                                <rect key="frame" x="84" y="112" width="600" height="800"/>
+                                <rect key="frame" x="0.0" y="0.0" width="768" height="974"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" id="0Yl-mA-UjT">
-                                        <rect key="frame" x="131" y="183" width="338" height="434"/>
+                                        <rect key="frame" x="215" y="295" width="338" height="434"/>
                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                         <subviews>
                                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Sample text" borderStyle="roundedRect" minimumFontSize="17" id="mHu-GD-RXh">
@@ -37,10 +37,10 @@
                                         <color key="backgroundColor" red="1" green="0.27583467951397422" blue="0.62542450476341571" alpha="1" colorSpace="calibratedRGB"/>
                                     </view>
                                 </subviews>
-                                <color key="backgroundColor" red="0.60195742996638968" green="1" blue="0.5896498257712659" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </view>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" red="0.83733865489130432" green="0.91654636548913038" blue="0.91654636548913038" alpha="1" colorSpace="calibratedRGB"/>
                     </view>
                     <simulatedOrientationMetrics key="simulatedOrientationMetrics"/>
                     <connections>

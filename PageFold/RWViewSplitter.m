@@ -45,10 +45,12 @@
         if(![self.leftView superview]) {
             [self split];
         }
-        CATransform3D rotn = CATransform3DMakeRotation(self.currentProportion * M_PI_2, 0, 1, 0);
-        self.leftView.layer.transform = rotn;
-        rotn = CATransform3DMakeRotation(- self.currentProportion * M_PI_2, 0, 1, 0);
-        self.rightView.layer.transform = rotn;
+        CATransform3D transform = CATransform3DMakeTranslation(0, 0, self.currentProportion * -500);
+        transform = CATransform3DRotate(transform, self.currentProportion * M_PI_2, 0, 1, 0);
+        self.leftView.layer.transform = transform;
+        transform = CATransform3DMakeTranslation(0, 0, self.currentProportion * -500);
+        transform = CATransform3DRotate(transform, self.currentProportion * - M_PI_2, 0, 1, 0);
+        self.rightView.layer.transform = transform;
     }
 }
 

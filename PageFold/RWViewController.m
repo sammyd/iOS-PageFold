@@ -21,6 +21,7 @@
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
+    self.contentView.layer.cornerRadius = 30;
 }
 
 - (void)viewDidAppear:(BOOL)animated
