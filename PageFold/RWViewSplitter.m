@@ -37,10 +37,19 @@
 {
     self.currentProportion = MIN(1, MAX(0, completion));
     
-    CATransform3D rotn = CATransform3DMakeRotation(completion * M_PI_2, 0, 1, 0);
-    self.leftView.layer.transform = rotn;
-    rotn = CATransform3DMakeRotation(- completion * M_PI_2, 0, 1, 0);
-    self.rightView.layer.transform = rotn;
+    if(self.currentProportion <= 1E-06) {
+        self.leftView.layer.transform = CATransform3DIdentity;
+        self.rightView.layer.transform = CATransform3DIdentity;
+        [self unsplit];
+    } else {
+        if(![self.leftView superview]) {
+            [self split];
+        }
+        CATransform3D rotn = CATransform3DMakeRotation(self.currentProportion * M_PI_2, 0, 1, 0);
+        self.leftView.layer.transform = rotn;
+        rotn = CATransform3DMakeRotation(- self.currentProportion * M_PI_2, 0, 1, 0);
+        self.rightView.layer.transform = rotn;
+    }
 }
 
 
@@ -60,6 +69,8 @@
     [self.container addSubview:self.initialView];
     [self.leftView removeFromSuperview];
     [self.rightView removeFromSuperview];
+    self.leftView = nil;
+    self.rightView = nil;
 }
 
 

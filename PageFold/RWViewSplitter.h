@@ -13,7 +13,4 @@
 - (instancetype)initWithView:(UIView *)view container:(UIView *)container;
 - (void)setAnimationCompleted:(CGFloat)completion;
 
-- (void)split;
-- (void)unsplit;
-
 @end

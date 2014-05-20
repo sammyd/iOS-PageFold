@@ -21,16 +21,11 @@
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
-    
-    
 }
 
 - (void)viewDidAppear:(BOOL)animated
 {
     self.viewSplitter = [[RWViewSplitter alloc] initWithView:self.contentView container:self.view];
-
-    [self.viewSplitter split];
-    
     [self.viewSplitter setAnimationCompleted:0.5];
 }
 
