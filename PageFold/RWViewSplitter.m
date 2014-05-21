@@ -17,6 +17,9 @@
 @property (nonatomic, strong) UIView *leftView;
 @property (nonatomic, strong) UIView *rightView;
 
+@property (nonatomic, strong) CAGradientLayer *rightGradientLayer;
+@property (nonatomic, strong) CAGradientLayer *leftGradientLayer;
+
 @end
 
 
@@ -45,12 +48,17 @@
         if(![self.leftView superview]) {
             [self split];
         }
+        [CATransaction begin];
+        [CATransaction setDisableActions:YES];
         CATransform3D transform = CATransform3DMakeTranslation(0, 0, self.currentProportion * -500);
         transform = CATransform3DRotate(transform, self.currentProportion * M_PI_2, 0, 1, 0);
         self.leftView.layer.transform = transform;
         transform = CATransform3DMakeTranslation(0, 0, self.currentProportion * -500);
         transform = CATransform3DRotate(transform, self.currentProportion * - M_PI_2, 0, 1, 0);
         self.rightView.layer.transform = transform;
+        self.rightGradientLayer.opacity = self.currentProportion;
+        self.leftGradientLayer.opacity = self.currentProportion;
+        [CATransaction commit];
     }
 }
 
@@ -94,8 +102,42 @@
                                      afterScreenUpdates:YES
                                           withCapInsets:UIEdgeInsetsZero];
     right.layer.anchorPoint = CGPointMake(0, 0.5);
-    right.frame = CGRectOffset(rightRect, view.frame.origin.x, view.frame.origin.y);;
+    right.frame = CGRectOffset(rightRect, view.frame.origin.x, view.frame.origin.y);
     self.rightView = right;
+    
+    self.rightGradientLayer = [CAGradientLayer layer];
+    self.rightGradientLayer.bounds = self.rightView.bounds;
+    self.rightGradientLayer.position = CGPointMake(self.rightView.bounds.size.width / 2,
+                                                   self.rightView.bounds.size.height / 2);
+    self.rightGradientLayer.colors = @[
+                                       (id)[[UIColor blackColor] colorWithAlphaComponent:0.4].CGColor,
+                                       (id)[[UIColor blackColor] colorWithAlphaComponent:0.2].CGColor
+                                       ];
+    self.rightGradientLayer.locations = @[@0, @1];
+    self.rightGradientLayer.startPoint = CGPointMake(0, 0.5);
+    self.rightGradientLayer.endPoint = CGPointMake(1, 0.5);
+    
+    self.leftGradientLayer = [CAGradientLayer layer];
+    self.leftGradientLayer.bounds = self.leftView.bounds;
+    self.leftGradientLayer.position = CGPointMake(self.leftView.bounds.size.width / 2,
+                                                  self.leftView.bounds.size.height / 2);
+    self.leftGradientLayer.colors = @[
+                                      (id)[[UIColor blackColor] colorWithAlphaComponent:0.1].CGColor,
+                                      (id)[[UIColor blackColor] colorWithAlphaComponent:0.2].CGColor
+                                      ];
+    self.leftGradientLayer.locations = @[@0, @1];
+    self.leftGradientLayer.startPoint = CGPointMake(0, 0.5);
+    self.leftGradientLayer.endPoint = CGPointMake(1, 0.5);
+    
+    [self.rightView.layer addSublayer:self.rightGradientLayer];
+    [self.leftView.layer addSublayer:self.leftGradientLayer];
+    
+    
+    [CATransaction begin];
+    [CATransaction setDisableActions:YES];
+    self.rightGradientLayer.opacity = 0.0;
+    self.leftGradientLayer.opacity = 0.0;
+    [CATransaction commit];
 }
 
 - (void)prepareTransforms
