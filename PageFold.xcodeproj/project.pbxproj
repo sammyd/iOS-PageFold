@@ -23,6 +23,7 @@
 		22ACC83A1929E0B200801833 /* PageFoldTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 22ACC8391929E0B200801833 /* PageFoldTests.m */; };
 		22ACC8461929E20200801833 /* RWViewSplitter.m in Sources */ = {isa = PBXBuildFile; fileRef = 22ACC8451929E20200801833 /* RWViewSplitter.m */; };
 		22ACC849192E8AA100801833 /* RWPageFoldRenderer.m in Sources */ = {isa = PBXBuildFile; fileRef = 22ACC848192E8AA100801833 /* RWPageFoldRenderer.m */; };
+		22ACC84C192E9B6A00801833 /* RWPageFoldAnimator.m in Sources */ = {isa = PBXBuildFile; fileRef = 22ACC84B192E9B6A00801833 /* RWPageFoldAnimator.m */; };
 		41786A35F217487FBFEF652A /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 67C1EDD06A884C999D780C96 /* libPods.a */; };
 /* End PBXBuildFile section */
 
@@ -60,6 +61,8 @@
 		22ACC8451929E20200801833 /* RWViewSplitter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RWViewSplitter.m; sourceTree = "<group>"; };
 		22ACC847192E8AA100801833 /* RWPageFoldRenderer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RWPageFoldRenderer.h; sourceTree = "<group>"; };
 		22ACC848192E8AA100801833 /* RWPageFoldRenderer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RWPageFoldRenderer.m; sourceTree = "<group>"; };
+		22ACC84A192E9B6A00801833 /* RWPageFoldAnimator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RWPageFoldAnimator.h; sourceTree = "<group>"; };
+		22ACC84B192E9B6A00801833 /* RWPageFoldAnimator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RWPageFoldAnimator.m; sourceTree = "<group>"; };
 		67C1EDD06A884C999D780C96 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		DE43AD8CE7B14B7D8C654E04 /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -175,6 +178,8 @@
 				22ACC8451929E20200801833 /* RWViewSplitter.m */,
 				22ACC847192E8AA100801833 /* RWPageFoldRenderer.h */,
 				22ACC848192E8AA100801833 /* RWPageFoldRenderer.m */,
+				22ACC84A192E9B6A00801833 /* RWPageFoldAnimator.h */,
+				22ACC84B192E9B6A00801833 /* RWPageFoldAnimator.m */,
 			);
 			name = Animator;
 			sourceTree = "<group>";
@@ -332,6 +337,7 @@
 				22ACC8461929E20200801833 /* RWViewSplitter.m in Sources */,
 				22ACC849192E8AA100801833 /* RWPageFoldRenderer.m in Sources */,
 				22ACC81F1929E0B100801833 /* RWAppDelegate.m in Sources */,
+				22ACC84C192E9B6A00801833 /* RWPageFoldAnimator.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -12,5 +12,9 @@
 
 @property (weak, nonatomic) IBOutlet UIView *contentView;
 - (IBAction)handleCompletionSliderChanged:(UISlider *)sender;
+- (IBAction)handleOpenButtonPressed:(id)sender;
+- (IBAction)handleCloseButtonPressed:(id)sender;
+
+
 
 @end
