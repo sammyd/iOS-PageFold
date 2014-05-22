@@ -43,28 +43,23 @@
 
 - (void)openPage
 {
-    POPPropertyAnimation *anim = [self proportionAnimation];
-    anim.toValue = @0.0;
+    POPBasicAnimation *anim = [POPBasicAnimation animation];
+    anim.property = self.openProportionAnimateableProperty;
+    anim.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseOut];
+    anim.fromValue = @(self.renderer.openProportion);
+    anim.toValue = @0;
     [self.renderer pop_addAnimation:anim forKey:@"OpenProportion"];
 }
 
 - (void)closePage
 {
-    POPPropertyAnimation *anim = [self proportionAnimation];
-    anim.toValue = @0.45;
-    [self.renderer pop_addAnimation:anim forKey:@"OpenProportion"];
-}
-
-
-#pragma mark - Utility methods
-- (POPPropertyAnimation *)proportionAnimation
-{
     POPSpringAnimation *anim = [POPSpringAnimation animation];
     anim.property = self.openProportionAnimateableProperty;
-    anim.springBounciness = 12;
-    anim.springSpeed = 4;
     anim.fromValue = @(self.renderer.openProportion);
-    return anim;
+    anim.toValue = @0.45;
+    anim.springSpeed = 4.0;
+    anim.springBounciness = 12.0;
+    [self.renderer pop_addAnimation:anim forKey:@"OpenProportion"];
 }
 
 @end
