@@ -10,7 +10,12 @@
 
 @interface RWViewSplitter : NSObject
 
-- (instancetype)initWithView:(UIView *)view container:(UIView *)container;
-- (void)setAnimationCompleted:(CGFloat)completion;
+- (instancetype)initWithView:(UIView *)view;
+
+@property (nonatomic, strong, readonly) UIView *leftView;
+@property (nonatomic, strong, readonly) UIView *rightView;
+
+- (void)splitView;
+- (void)unsplitView;
 
 @end

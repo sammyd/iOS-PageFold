@@ -12,58 +12,26 @@
 
 @property (nonatomic, strong) UIView *initialView;
 @property (nonatomic, strong) UIView *container;
-@property (nonatomic, assign) CGFloat currentProportion;
 
-@property (nonatomic, strong) UIView *leftView;
-@property (nonatomic, strong) UIView *rightView;
-
-@property (nonatomic, strong) CAGradientLayer *rightGradientLayer;
-@property (nonatomic, strong) CAGradientLayer *leftGradientLayer;
+@property (nonatomic, strong, readwrite) UIView *leftView;
+@property (nonatomic, strong, readwrite) UIView *rightView;
 
 @end
 
 
 @implementation RWViewSplitter
 
-- (instancetype)initWithView:(UIView *)view container:(UIView *)container
+- (instancetype)initWithView:(UIView *)view
 {
     self = [super init];
     if(self) {
         self.initialView = view;
-        self.container = container;
+        self.container = [view superview];
     }
     return self;
 }
 
-
-- (void)setAnimationCompleted:(CGFloat)completion
-{
-    self.currentProportion = MIN(1, MAX(0, completion));
-    
-    if(self.currentProportion <= 1E-06) {
-        self.leftView.layer.transform = CATransform3DIdentity;
-        self.rightView.layer.transform = CATransform3DIdentity;
-        [self unsplit];
-    } else {
-        if(![self.leftView superview]) {
-            [self split];
-        }
-        [CATransaction begin];
-        [CATransaction setDisableActions:YES];
-        CATransform3D transform = CATransform3DMakeTranslation(0, 0, self.currentProportion * -500);
-        transform = CATransform3DRotate(transform, self.currentProportion * M_PI_2, 0, 1, 0);
-        self.leftView.layer.transform = transform;
-        transform = CATransform3DMakeTranslation(0, 0, self.currentProportion * -500);
-        transform = CATransform3DRotate(transform, self.currentProportion * - M_PI_2, 0, 1, 0);
-        self.rightView.layer.transform = transform;
-        self.rightGradientLayer.opacity = self.currentProportion;
-        self.leftGradientLayer.opacity = self.currentProportion;
-        [CATransaction commit];
-    }
-}
-
-
-- (void)split
+- (void)splitView
 {
     if(!self.leftView) {
         [self splitView:self.initialView];
@@ -74,7 +42,7 @@
     [self.initialView removeFromSuperview];
 }
 
-- (void)unsplit
+- (void)unsplitView
 {
     [self.container addSubview:self.initialView];
     [self.leftView removeFromSuperview];
@@ -82,7 +50,6 @@
     self.leftView = nil;
     self.rightView = nil;
 }
-
 
 #pragma mark - Non-public methods
 - (void)splitView:(UIView *)view
@@ -103,41 +70,7 @@
                                           withCapInsets:UIEdgeInsetsZero];
     right.layer.anchorPoint = CGPointMake(0, 0.5);
     right.frame = CGRectOffset(rightRect, view.frame.origin.x, view.frame.origin.y);
-    self.rightView = right;
-    
-    self.rightGradientLayer = [CAGradientLayer layer];
-    self.rightGradientLayer.bounds = self.rightView.bounds;
-    self.rightGradientLayer.position = CGPointMake(self.rightView.bounds.size.width / 2,
-                                                   self.rightView.bounds.size.height / 2);
-    self.rightGradientLayer.colors = @[
-                                       (id)[[UIColor blackColor] colorWithAlphaComponent:0.3].CGColor,
-                                       (id)[[UIColor blackColor] colorWithAlphaComponent:0.2].CGColor
-                                       ];
-    self.rightGradientLayer.locations = @[@0, @1];
-    self.rightGradientLayer.startPoint = CGPointMake(0, 0.5);
-    self.rightGradientLayer.endPoint = CGPointMake(1, 0.5);
-    
-    self.leftGradientLayer = [CAGradientLayer layer];
-    self.leftGradientLayer.bounds = self.leftView.bounds;
-    self.leftGradientLayer.position = CGPointMake(self.leftView.bounds.size.width / 2,
-                                                  self.leftView.bounds.size.height / 2);
-    self.leftGradientLayer.colors = @[
-                                      (id)[[UIColor blackColor] colorWithAlphaComponent:0.1].CGColor,
-                                      (id)[[UIColor blackColor] colorWithAlphaComponent:0.2].CGColor
-                                      ];
-    self.leftGradientLayer.locations = @[@0, @1];
-    self.leftGradientLayer.startPoint = CGPointMake(0, 0.5);
-    self.leftGradientLayer.endPoint = CGPointMake(1, 0.5);
-    
-    [self.rightView.layer addSublayer:self.rightGradientLayer];
-    [self.leftView.layer addSublayer:self.leftGradientLayer];
-    
-    
-    [CATransaction begin];
-    [CATransaction setDisableActions:YES];
-    self.rightGradientLayer.opacity = 0.0;
-    self.leftGradientLayer.opacity = 0.0;
-    [CATransaction commit];
+    self.rightView = right;    
 }
 
 - (void)prepareTransforms

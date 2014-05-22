@@ -7,11 +7,11 @@
 //
 
 #import "RWViewController.h"
-#import "RWViewSplitter.h"
+#import "RWPageFoldRenderer.h"
 
 @interface RWViewController ()
 
-@property (nonatomic, strong) RWViewSplitter *viewSplitter;
+@property (nonatomic, strong) RWPageFoldRenderer *pageFoldRenderer;
 
 @end
 
@@ -26,11 +26,11 @@
 
 - (void)viewDidAppear:(BOOL)animated
 {
-    self.viewSplitter = [[RWViewSplitter alloc] initWithView:self.contentView container:self.view];
-    [self.viewSplitter setAnimationCompleted:0.5];
+    self.pageFoldRenderer = [[RWPageFoldRenderer alloc] initWithView:self.contentView];
+    self.pageFoldRenderer.openProportion = 0.5;
 }
 
 - (IBAction)handleCompletionSliderChanged:(UISlider *)sender {
-    [self.viewSplitter setAnimationCompleted:sender.value];
+    self.pageFoldRenderer.openProportion = sender.value;
 }
 @end
