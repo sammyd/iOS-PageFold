@@ -110,7 +110,7 @@
     self.rightGradientLayer.position = CGPointMake(self.rightView.bounds.size.width / 2,
                                                    self.rightView.bounds.size.height / 2);
     self.rightGradientLayer.colors = @[
-                                       (id)[[UIColor blackColor] colorWithAlphaComponent:0.4].CGColor,
+                                       (id)[[UIColor blackColor] colorWithAlphaComponent:0.3].CGColor,
                                        (id)[[UIColor blackColor] colorWithAlphaComponent:0.2].CGColor
                                        ];
     self.rightGradientLayer.locations = @[@0, @1];
